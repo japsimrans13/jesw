@@ -13,7 +13,7 @@
 To install `jesw`, run the following command in your terminal:
 
 ```bash
-npm install -g jesw
+npm install -g jesw-suite
 ```
 
 This will install `jesw` globally on your machine, allowing you to use it in any directory.

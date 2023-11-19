@@ -1,0 +1,30 @@
+{
+  "name": "jesw",
+  "version": "1.0.0",
+  "description": "`jesw` is a Node.js CLI tool designed to streamline the process of setting up a new Express.js application.",
+  "main": "main.js",
+  "scripts": {
+    "test": "mocha",
+    "jesw-create": "node create.js",
+    "jesw-delete": "node delete.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/japsimrans13/jesw.git"
+  },
+  "keywords": [
+    "jesw"
+  ],
+  "author": "Japsimran Singh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/japsimrans13/jesw/issues"
+  },
+  "homepage": "https://github.com/japsimrans13/jesw#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "chalk": "^4.1.2",
+    "dotenv": "^16.3.1",
+    "minimist": "^1.2.8"
+  }
+}

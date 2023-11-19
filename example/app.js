@@ -14,7 +14,7 @@ require('dotenv').config();
   // MongoDB connection
   mongoose.connect(process.env.MONGODB_URI, { useUnifiedTopology: true, useNewUrlParser: true,createIndexes: true})
       .then(() => console.log('Connected to MongoDB'))
-      .catch(err => console.error('Could not connect to MongoDB', err));
+      .catch(err => console.log('Could not connect to MongoDB', err));
   
   // Export app for unit testing
   module.exports = app;

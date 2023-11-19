@@ -6,28 +6,30 @@ const { exec } = require("child_process");
 const minimist = require("minimist");
 const chalk = require('chalk');
 
+console.log(chalk.blue("Welcome to Express.js Setup Wizard"));
 const args = minimist(process.argv.slice(2));
 const projectName = args.name;
-
+console.log(chalk.blue("Project name: "+projectName));
 // Check if a project already exists in the current directory(check for package.json) and project directory not dpecified 
 if (fs.existsSync("package.json") && !projectName) {
-  console.error(chalk.red("package.json file found !!! A project already exists in this directory."));
-  console.error("Exited..");
+  console.log(chalk.red("package.json file found !!! A project already exists in this directory."));
+  console.log("Exited..");
   process.exit(1);
 }
 
 if (projectName) {
-  console.error(chalk.blue(`Project name is given as an argument, Using ${projectName} as project directory`));
-  // process.exit(1);
-}
-// Create project directory
+  console.log(chalk.blue(`Project name is given as an argument, Using ${projectName} as project directory`));
+  // Create project directory
 if (!fs.existsSync(projectName)) {
+  console.log(chalk.yellowBright("Creating project directory named: "+projectName));
   fs.mkdirSync(projectName);
 } else {
-  console.error(chalk.red(`A directory named ${projectName} already exists.`));
-  console.error("Exited..");
+  console.log(chalk.red(`A directory named ${projectName} already exists.`));
+  console.log("Exited..");
   process.exit(1);
 }
+}
+
 
 
 
@@ -37,6 +39,7 @@ const generateBoilerplate = () => {
   
 
   if (projectName) {
+    console.log(chalk.yellowBright("Generating boilerplate... of project name: "+projectName));
     // Directory structure
   const directories = [`${projectName}/models`, `${projectName}/routes`, `${projectName}/controllers`, `${projectName}/test`];
   directories.forEach((dir) => {
@@ -99,7 +102,7 @@ const appJsContent = () => {
   // MongoDB connection
   mongoose.connect(process.env.MONGODB_URI, { useUnifiedTopology: true, useNewUrlParser: true,createIndexes: true})
       .then(() => console.log('Connected to MongoDB'))
-      .catch(err => console.error('Could not connect to MongoDB', err));
+      .catch(err => console.log('Could not connect to MongoDB', err));
   
   // Export app for unit testing
   module.exports = app;
@@ -238,11 +241,11 @@ const installPackages = (callback) => {
   if (projectName) {
     exec(`cd ${projectName} && npm install`, (error, stdout, stderr) => {
       if (error) {
-        console.error(`Error occurred: ${error}`);
+        console.log(`Error occurred: ${error}`);
         return;
       }
       if (stderr) {
-        console.error(`Error occurred: ${stderr}`);
+        console.log(`Error occurred: ${stderr}`);
         return;
       }
       console.log(stdout);
@@ -252,11 +255,11 @@ const installPackages = (callback) => {
   else {
   exec("npm install", (error, stdout, stderr) => {
     if (error) {
-      console.error(`Error occurred: ${error}`);
+      console.log(`Error occurred: ${error}`);
       return;
     }
     if (stderr) {
-      console.error(`Error occurred: ${stderr}`);
+      console.log(`Error occurred: ${stderr}`);
       return;
     }
     console.log(stdout);

@@ -1,5 +1,5 @@
 # JESW - express-setup-wizard
-`jesw` is a Node.js CLI tool designed to streamline the process of setting up a new Express.js application, particularly focusing on creating a robust authentication system. This tool generates boilerplate code for Express applications, helping developers kickstart their projects with essential features like user authentication, database connection setup, and basic routing.
+`jesw` is a Node.js CLI tool designed to streamline the process of setting up a new Express.js application (MVC), particularly focusing on creating a robust authentication system. This tool generates boilerplate code for Express applications, helping developers kickstart their projects with essential features like user authentication, database connection setup, and basic routing.
 
 ## Features
 
@@ -23,14 +23,15 @@ This will install `jesw` globally on your machine, allowing you to use it in any
 To create a new Express.js project with authentication setup, navigate to your desired directory and run:
 
 ```bash
-jesw
+npm run jesw-create 
 ```
 
 or
 
+```bash
+npm run -- --name newprojectName
 ```
-npm run jesw-create
-```
+
 
 Follow the interactive prompts to configure your application. `jesw` will create the necessary files and directories based on your input.
 

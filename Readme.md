@@ -1,4 +1,4 @@
-# JESW - express-setup-wizard
+# JESW-SUITE - Express-Setup-Wizard
 `jesw` is a Node.js CLI tool designed to streamline the process of setting up a new Express.js application (MVC), particularly focusing on creating a robust authentication system. This tool generates boilerplate code for Express applications, helping developers kickstart their projects with essential features like user authentication, database connection setup, and basic routing.
 
 ## Features
@@ -29,11 +29,11 @@ npm run jesw-create
 or
 
 ```bash
-npm run -- --name newprojectName
+npm run jesw-create -- --name newprojectName
 ```
 
 
-Follow the interactive prompts to configure your application. `jesw` will create the necessary files and directories based on your input.
+Follow the interactive prompts to configure your application. `jesw-suite` will create the necessary files and directories based on your input.
 
 ## Generated Project Structure
 
@@ -48,6 +48,8 @@ project-name/
 ······ authRoutes.js
 ··· controllers/
 ······ authController.js
+··· test/
+······ auth.test.js
 ··· app.js
 ```
 

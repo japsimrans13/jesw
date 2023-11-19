@@ -1,5 +1,5 @@
 {
-  "name": "jesw",
+  "name": "jesw-suite",
   "version": "1.0.0",
   "description": "`jesw` is a Node.js CLI tool designed to streamline the process of setting up a new Express.js application.",
   "main": "main.js",
@@ -13,7 +13,7 @@
     "url": "git+https://github.com/japsimrans13/jesw.git"
   },
   "keywords": [
-    "jesw"
+    "jesw", "jesw-suite"
   ],
   "author": "Japsimran Singh",
   "license": "ISC",

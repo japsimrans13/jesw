@@ -23,17 +23,17 @@ This will install `jesw` globally on your machine, allowing you to use it in any
 To create a new Express.js project with authentication setup, navigate to your desired directory and run:
 
 ```bash
-npm run jesw-create 
+jesw-suite 
 ```
 
 or
 
 ```bash
-npm run jesw-create -- --name newprojectName
+jesw-suite --name newprojectName
 ```
 
 
-Follow the interactive prompts to configure your application. `jesw-suite` will create the necessary files and directories based on your input.
+Follow the interactive prompts to configure your application. `jesw` will create the necessary files and directories based on your input.
 
 ## Generated Project Structure
 

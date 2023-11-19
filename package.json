@@ -1,6 +1,6 @@
 {
   "name": "jesw-suite",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "`jesw` is a Node.js CLI tool designed to streamline the process of setting up a new Express.js application.",
   "main": "main.js",
   "scripts": {

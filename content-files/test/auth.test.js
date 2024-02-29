@@ -12,7 +12,7 @@ exports.authTestContent = () => {
       it('should register a new user', (done) => {
         chai.request(app)
           .post('/api/register')
-          .send({ username: 'email', password: 'testpass' })
+          .send({ email: 'testuser1', password: 'testpass' })
           .end((err, res) => {
             expect(res).to.have.status(201);
             // Add more assertions as needed

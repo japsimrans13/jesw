@@ -17,8 +17,8 @@ const {authTestContent} = require('./content-files/test/auth.test.js');
 
 console.log(chalk.blue("Welcome to Express.js Setup Wizard"));
 const args = minimist(process.argv.slice(2));
-// const projectName = args.name;
-const projectName = ""; // Use when testing locally
+const projectName = args.name;
+// const projectName = ""; // Use when testing locally
 console.log(chalk.blue("Project name: "+projectName));
 // Check if a project already exists in the current directory(check for package.json) and project directory not specified 
 if (fs.existsSync("package.json") && !projectName) {

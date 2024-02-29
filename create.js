@@ -57,7 +57,7 @@ const generateBoilerplate = () => {
     }
   });
     fs.writeFileSync(`${projectName ? `${projectName}/` : ''}/app.js`, appJsContent());
-    fs.writeFileSync(`${projectName ? `${projectName}/` : ''}/models/userModel.js`, userModelContent());
+    fs.writeFileSync(`${projectName ? `${projectName}/` : ''}/models/UserModel.js`, userModelContent());
     fs.writeFileSync(`${projectName ? `${projectName}/` : ''}/routes/userRoutes.js`, userRoutesContent());
     fs.writeFileSync(`${projectName ? `${projectName}/` : ''}/controllers/userController.js`, userControllerContent());
     fs.writeFileSync(`${projectName ? `${projectName}/` : ''}/test/auth.test.js`, authTestContent());

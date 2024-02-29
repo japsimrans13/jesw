@@ -6,11 +6,21 @@ const { exec } = require("child_process");
 const minimist = require("minimist");
 const chalk = require('chalk');
 
+// content-files import 
+const {appJsContent} = require('./content-files/app.js');
+const {userModelContent} = require('./content-files/models/UserModel.js');
+const {userRoutesContent} = require('./content-files/routes/userRoutes.js');
+const {userControllerContent} = require('./content-files/controllers/userControllers.js');
+const {authMiddlewareContent} = require('./content-files/middlewares/authMiddlewares.js');
+const {authTestContent} = require('./content-files/test/auth.test.js');
+
+
 console.log(chalk.blue("Welcome to Express.js Setup Wizard"));
 const args = minimist(process.argv.slice(2));
-const projectName = args.name;
+// const projectName = args.name;
+const projectName = ""; // Use when testing locally
 console.log(chalk.blue("Project name: "+projectName));
-// Check if a project already exists in the current directory(check for package.json) and project directory not dpecified 
+// Check if a project already exists in the current directory(check for package.json) and project directory not specified 
 if (fs.existsSync("package.json") && !projectName) {
   console.log(chalk.red("package.json file found !!! A project already exists in this directory."));
   console.log("Exited..");
@@ -32,50 +42,52 @@ if (!fs.existsSync(projectName)) {
 
 
 
-
 const generateBoilerplate = () => {
   // Generate a random JWT secret
   const jwtSecret = crypto.randomBytes(64).toString('hex');
-  
 
   if (projectName) {
-    console.log(chalk.yellowBright("Generating boilerplate... of project name: "+projectName));
+  console.log(chalk.yellowBright("Generating boilerplate... of project name: "+projectName));
+  }
     // Directory structure
-  const directories = [`${projectName}/models`, `${projectName}/routes`, `${projectName}/controllers`, `${projectName}/test`];
+  const directories = [`${projectName ? `${projectName}/` : ''}/models`, `${projectName ? `${projectName}/` : ''}/routes`, `${projectName ? `${projectName}/` : ''}/controllers`, `${projectName ? `${projectName}/` : ''}/test`, `${projectName ? `${projectName}/` : ''}/middlewares`];
   directories.forEach((dir) => {
     if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir);
     }
   });
-    fs.writeFileSync(`${projectName}/app.js`, appJsContent());
-    fs.writeFileSync(`${projectName}/models/userModel.js`, userModelContent());
-    fs.writeFileSync(`${projectName}/routes/authRoutes.js`, authRoutesContent());
-    fs.writeFileSync(`${projectName}/controllers/authController.js`, authControllerContent());
-    fs.writeFileSync(`${projectName}/test/auth.test.js`, authTestContent());
+    fs.writeFileSync(`${projectName ? `${projectName}/` : ''}/app.js`, appJsContent());
+    fs.writeFileSync(`${projectName ? `${projectName}/` : ''}/models/userModel.js`, userModelContent());
+    fs.writeFileSync(`${projectName ? `${projectName}/` : ''}/routes/userRoutes.js`, userRoutesContent());
+    fs.writeFileSync(`${projectName ? `${projectName}/` : ''}/controllers/userController.js`, userControllerContent());
+    fs.writeFileSync(`${projectName ? `${projectName}/` : ''}/test/auth.test.js`, authTestContent());
+    fs.writeFileSync(`${projectName ? `${projectName}/` : ''}/middlewares/authMiddleware.js`, authMiddlewareContent());
     fs.writeFileSync(
-      `${projectName}/.env`,
-      `MONGODB_URI=your_mongodb_connection_string\nJWT_SECRET=${jwtSecret}`
+      `${projectName ? `${projectName}/` : ''}/.env`,
+      `MONGODB_URI=your_mongodb_connection_string\nJWT_SECRET=${jwtSecret}\nPORT=8000
+      `
     );
-  }
-  else {
-    // Directory structure
-  const directories = ["models", "routes", "controllers", "test"];
-  directories.forEach((dir) => {
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir);
-    }
-  });
-  // Generate files with basic code
-  fs.writeFileSync("app.js", appJsContent());
-  fs.writeFileSync("models/userModel.js", userModelContent());
-  fs.writeFileSync("routes/authRoutes.js", authRoutesContent());
-  fs.writeFileSync("controllers/authController.js", authControllerContent());
-  fs.writeFileSync("test/auth.test.js", authTestContent());
-  fs.writeFileSync(
-    ".env",
-    `MONGODB_URI=your_mongodb_connection_string\nJWT_SECRET=${jwtSecret}`
-  );
-  }
+  
+  // else {
+  //   // Directory structure
+  // const directories = ["models", "routes", "controllers", "middlewares", "test"];
+  // directories.forEach((dir) => {
+  //   if (!fs.existsSync(dir)) {
+  //     fs.mkdirSync(dir);
+  //   }
+  // });
+  // // Generate files with basic code
+  // fs.writeFileSync("app.js", appJsContent());
+  // fs.writeFileSync("models/userModel.js", userModelContent());
+  // fs.writeFileSync("routes/userRoutes.js", userRoutesContent());
+  // fs.writeFileSync("controllers/userController.js", userControllerContent());
+  // fs.writeFileSync("test/auth.test.js", authTestContent());
+  // fs.writeFileSync("middlewares/authMiddleware.js", authMiddlewareContent());
+  // fs.writeFileSync(
+  //   ".env",
+  //   `MONGODB_URI=your_mongodb_connection_string\nJWT_SECRET=${jwtSecret}`
+  // );
+  // }
   createPackageJson();
   // Install packages
   installPackages(() => {
@@ -85,137 +97,18 @@ const generateBoilerplate = () => {
   });
 };
 
-const appJsContent = () => {
-  return `require('dotenv').config();
-  const express = require('express');
-  const mongoose = require('mongoose');
-  const authRoutes = require('./routes/authRoutes');
-  
-  const app = express();
-  
-  app.use(express.json());
-  app.use('/api', authRoutes);
-  
-  const PORT = process.env.PORT || 3000;
-  app.listen(PORT, () => console.log(\`Server running on port \${PORT}\`));
-  
-  // MongoDB connection
-  mongoose.connect(process.env.MONGODB_URI, { useUnifiedTopology: true, useNewUrlParser: true,createIndexes: true})
-      .then(() => console.log('Connected to MongoDB'))
-      .catch(err => console.log('Could not connect to MongoDB', err));
-  
-  // Export app for unit testing
-  module.exports = app;
-  `;
-};
-
-const userModelContent = () => {
-  return `const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
-
-const userSchema = new mongoose.Schema({
-    username: { type: String, required: true, unique: true },
-    password: { type: String, required: true }
-});
-
-userSchema.pre('save', async function(next) {
-    if (!this.isModified('password')) return next();
-    this.password = await bcrypt.hash(this.password, 12);
-    next();
-});
-
-module.exports = mongoose.model('User', userSchema);
-`;
-};
-
-const authRoutesContent = () => {
-  return `const express = require('express');
-const router = express.Router();
-const authController = require('../controllers/authController');
-
-router.post('/register', authController.register);
-router.post('/login', authController.login);
-
-module.exports = router;
-`;
-};
-
-const authControllerContent = () => {
-  return `const User = require('../models/userModel');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-
-exports.register = async (req, res) => {
-    try {
-        const { username, password } = req.body;
-        const user = await User.create({ username, password });
-        res.status(201).json({ message: 'User created successfully', user });
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-};
-
-exports.login = async (req, res) => {
-    try {
-        const { username, password } = req.body;
-        const user = await User.findOne({ username });
-        if (!user || !(await bcrypt.compare(password, user.password))) {
-            return res.status(401).json({ message: 'Invalid credentials' });
-        }
-        const token = jwt.sign({ id: user._id }, 'your_jwt_secret', { expiresIn: '1h' });
-        res.status(200).json({ message: 'Logged in successfully', token });
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-};
-`;
-};
 
 
-const authTestContent = () => {
-  return `const chai = require('chai');
-const chaiHttp = require('chai-http');
-const app = require('../app');
-const User = require('../models/userModel');
-const expect = chai.expect;
-
-chai.use(chaiHttp);
-
-describe('Authentication', () => {
-  describe('POST /api/register', () => {
-    it('should register a new user', (done) => {
-      chai.request(app)
-        .post('/api/register')
-        .send({ username: 'testuser', password: 'testpass' })
-        .end((err, res) => {
-          expect(res).to.have.status(201);
-          // Add more assertions as needed
-          done();
-        });
-    });
-  });
-
-  // Add more tests as needed
-
-  // Hook to run after each test in this block
-  afterEach((done) => {
-    // Delete the user created during the test
-    User.deleteOne({ username: 'testuser1' })
-      .then(() => done())
-      .catch(err => done(err));
-  });
-});
-`;
-};
 
 const createPackageJson = () => {
   const packageJsonContent = {
     name: projectName || 'my-express-app',
     version: '1.0.0',
-    description: 'An Express.js project',
+    description: 'An Express.js project created using jesw-suite',
     main: 'app.js',
     scripts: {
       start: 'node app.js',
+      dev: "nodemon app.js",
       test: 'mocha --reporter spec --exit'
     },
     dependencies: {
@@ -228,7 +121,9 @@ const createPackageJson = () => {
     devDependencies: {
       chai: '^4.2.0',
       'chai-http': '^4.3.0',
-      mocha: '^8.2.1'
+      mocha: '^8.2.1',
+      nodemon: '^3.0.3'
+      
     }
   };
 

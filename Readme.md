@@ -7,6 +7,7 @@
 - **Authentication Boilerplate**: Generates code for user registration and login, including password hashing and JWT handling.
 - **Customizable**: Interactive CLI prompts for custom configurations like MongoDB connection strings and JWT secrets.
 - **Modular Code**: Organized file structure with models, routes, and controllers for better maintainability.
+- **API Documentaion**: Quick-start Boilerplate API documentaion using [Postman](https://www.postman.com/gold-trinity-454853/workspace/jesw-suite)
 
 ## Installation
 

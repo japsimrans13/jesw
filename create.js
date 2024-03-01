@@ -78,8 +78,6 @@ const generateBoilerplate = () => {
 };
 
 
-
-
 const createPackageJson = () => {
   const packageJsonContent = {
     name: projectName || 'my-express-app',

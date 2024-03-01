@@ -62,6 +62,7 @@ const generateBoilerplate = () => {
     fs.writeFileSync(`${projectName ? `${projectName}/` : ''}/controllers/userController.js`, userControllerContent());
     fs.writeFileSync(`${projectName ? `${projectName}/` : ''}/test/auth.test.js`, authTestContent());
     fs.writeFileSync(`${projectName ? `${projectName}/` : ''}/middlewares/authMiddleware.js`, authMiddlewareContent());
+    fs.writeFileSync(`${projectName ? `${projectName}/` : ''}/.gitignore`, `node_modules\n.env\nprod.env\n`);
     fs.writeFileSync(
       `${projectName ? `${projectName}/` : ''}/.env`,
       `MONGODB_URI=your_mongodb_connection_string\nJWT_SECRET=${jwtSecret}\nPORT=8000

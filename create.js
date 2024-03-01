@@ -56,19 +56,19 @@ const generateBoilerplate = () => {
       fs.mkdirSync(dir);
     }
   });
-    fs.writeFileSync(`${projectName ? `${projectName}/` : ''}/app.js`, appJsContent());
-    fs.writeFileSync(`${projectName ? `${projectName}/` : ''}/models/UserModel.js`, userModelContent());
-    fs.writeFileSync(`${projectName ? `${projectName}/` : ''}/routes/userRoutes.js`, userRoutesContent());
-    fs.writeFileSync(`${projectName ? `${projectName}/` : ''}/controllers/userController.js`, userControllerContent());
-    fs.writeFileSync(`${projectName ? `${projectName}/` : ''}/test/auth.test.js`, authTestContent());
-    fs.writeFileSync(`${projectName ? `${projectName}/` : ''}/middlewares/authMiddleware.js`, authMiddlewareContent());
-    fs.writeFileSync(`${projectName ? `${projectName}/` : ''}/.gitignore`, `node_modules\n.env\nprod.env\n`);
-    fs.writeFileSync(
-      `${projectName ? `${projectName}/` : ''}/.env`,
-      `MONGODB_URI=your_mongodb_connection_string\nJWT_SECRET=${jwtSecret}\nPORT=8000
-      `
-    );
-  
+  fs.writeFileSync(`${projectName ? `${projectName}/` : ''}/app.js`, appJsContent());
+  fs.writeFileSync(`${projectName ? `${projectName}/` : ''}/models/UserModel.js`, userModelContent());
+  fs.writeFileSync(`${projectName ? `${projectName}/` : ''}/routes/userRoutes.js`, userRoutesContent());
+  fs.writeFileSync(`${projectName ? `${projectName}/` : ''}/controllers/userController.js`, userControllerContent());
+  fs.writeFileSync(`${projectName ? `${projectName}/` : ''}/test/auth.test.js`, authTestContent());
+  fs.writeFileSync(`${projectName ? `${projectName}/` : ''}/middlewares/authMiddleware.js`, authMiddlewareContent());
+  fs.writeFileSync(`${projectName ? `${projectName}/` : ''}/.gitignore`, `node_modules\n.env\nprod.env\n`);
+  fs.writeFileSync(
+    `${projectName ? `${projectName}/` : ''}/.env`,
+    `MONGODB_URI=your_mongodb_connection_string\nJWT_SECRET=${jwtSecret}\nPORT=8000
+    `
+  );
+
   createPackageJson();
   // Install packages
   installPackages(() => {
@@ -95,7 +95,8 @@ const createPackageJson = () => {
       mongoose: '^5.11.15',
       bcryptjs: '^2.4.3',
       dotenv: '^8.2.0',
-      jsonwebtoken: '^8.5.1'
+      jsonwebtoken: '^8.5.1',
+      cors: '^2.8.5',
     },
     devDependencies: {
       chai: '^4.2.0',

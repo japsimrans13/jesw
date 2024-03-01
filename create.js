@@ -68,26 +68,6 @@ const generateBoilerplate = () => {
       `
     );
   
-  // else {
-  //   // Directory structure
-  // const directories = ["models", "routes", "controllers", "middlewares", "test"];
-  // directories.forEach((dir) => {
-  //   if (!fs.existsSync(dir)) {
-  //     fs.mkdirSync(dir);
-  //   }
-  // });
-  // // Generate files with basic code
-  // fs.writeFileSync("app.js", appJsContent());
-  // fs.writeFileSync("models/userModel.js", userModelContent());
-  // fs.writeFileSync("routes/userRoutes.js", userRoutesContent());
-  // fs.writeFileSync("controllers/userController.js", userControllerContent());
-  // fs.writeFileSync("test/auth.test.js", authTestContent());
-  // fs.writeFileSync("middlewares/authMiddleware.js", authMiddlewareContent());
-  // fs.writeFileSync(
-  //   ".env",
-  //   `MONGODB_URI=your_mongodb_connection_string\nJWT_SECRET=${jwtSecret}`
-  // );
-  // }
   createPackageJson();
   // Install packages
   installPackages(() => {

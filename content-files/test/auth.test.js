@@ -2,7 +2,7 @@ exports.authTestContent = () => {
     return `const chai = require('chai');
   const chaiHttp = require('chai-http');
   const app = require('../app');
-  const User = require('../models/userModel');
+  const User = require('../models/UserModel');
   const expect = chai.expect;
   
   chai.use(chaiHttp);

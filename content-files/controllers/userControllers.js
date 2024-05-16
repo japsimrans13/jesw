@@ -1,5 +1,5 @@
 exports.userControllerContent = () => {
-    return `const User = require('../models/userModel');
+    return `const User = require('../models/UserModel');
   const bcrypt = require('bcryptjs');
   const jwt = require('jsonwebtoken');
   
